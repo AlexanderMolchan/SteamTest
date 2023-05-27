@@ -30,11 +30,10 @@ final class NewsViewController: UIViewController {
         spinner.color = .systemCyan
         return spinner
     }()
-    
-    var currentId: Int?
-    
+        
     private lazy var emptyView = EmptyView()
     private var networkManager = NetworkManager()
+    var currentId: Int?
     
     private var newsArray = [NewsModel]() {
         didSet {
@@ -55,20 +54,8 @@ final class NewsViewController: UIViewController {
         registerCells()
     }
     
-    private func getData() {
-        guard let currentId else { return emptyViewSettings() }
-        spinner.startAnimating()
-        networkManager.getNewsForAppWith(id: currentId) { [weak self] result in
-            guard  let self else { return }
-            self.newsArray = result.appnews.newsitems
-            self.emptyViewSettings()
-            self.spinner.stopAnimating()
-        } failure: { [weak self] error in
-            self?.spinner.stopAnimating()
-            self?.emptyViewSettings()
-        }
-    }
-
+    // MARK: -
+    // MARK: - UI Configuration
     
     private func layoutElements() {
         view.addSubview(tableView)
@@ -92,6 +79,23 @@ final class NewsViewController: UIViewController {
         }
     }
     
+    // MARK: -
+    // MARK: - Logic
+    
+    private func getData() {
+        guard let currentId else { return emptyViewSettings() }
+        spinner.startAnimating()
+        networkManager.getNewsForAppWith(id: currentId) { [weak self] result in
+            guard  let self else { return }
+            self.newsArray = result.appnews.newsitems
+            self.emptyViewSettings()
+            self.spinner.stopAnimating()
+        } failure: { [weak self] error in
+            self?.spinner.stopAnimating()
+            self?.emptyViewSettings()
+        }
+    }
+    
     private func registerCells() {
         tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.id)
     }
@@ -109,6 +113,9 @@ final class NewsViewController: UIViewController {
     }
     
 }
+
+// MARK: -
+// MARK: - TableView Extension
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
