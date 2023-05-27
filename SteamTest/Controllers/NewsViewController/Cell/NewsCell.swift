@@ -60,15 +60,26 @@ final class NewsCell: UITableViewCell {
         }
     }
     
+    func filterTagsFrom(text: String) -> String {
+        return text.replacingOccurrences(of: "\\[.*\\]", with: "", options: String.CompareOptions.regularExpression)
+    }
+    
     private func setupData() {
         titleLabel.text = currentNews.title
         do {
             let doc: Document = try SwiftSoup.parseBodyFragment(currentNews.contents)
             let parseNews = try doc.text()
-            self.newsLabel.text = parseNews
+            self.newsLabel.text = filterTagsFrom(text: parseNews.removingUrls())
         } catch {
             print("Error")
         }
     }
     
+}
+
+extension String {
+    func removingUrls() -> String {
+        guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else { return self }
+        return detector.stringByReplacingMatches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count), withTemplate: "")
+    }
 }
