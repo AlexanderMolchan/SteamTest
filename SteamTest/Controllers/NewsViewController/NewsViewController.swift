@@ -9,15 +9,6 @@ import UIKit
 import SnapKit
 
 final class NewsViewController: UIViewController {
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Marker Felt", size: 30)
-        label.textAlignment = .center
-        label.text = "Новости"
-        label.textColor = .black
-        return label
-    }()
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -29,6 +20,12 @@ final class NewsViewController: UIViewController {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.color = .systemCyan
         return spinner
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .systemCyan
+        return refresh
     }()
         
     private lazy var emptyView = EmptyView()
@@ -49,9 +46,11 @@ final class NewsViewController: UIViewController {
     
     private func controllerConfigurate() {
         self.view.backgroundColor = .white
+        navigationControllerSettings(title: "Новости")
         layoutElements()
         makeConstraints()
         registerCells()
+        refreshControllConfiguration()
     }
     
     // MARK: -
@@ -60,17 +59,10 @@ final class NewsViewController: UIViewController {
     private func layoutElements() {
         view.addSubview(tableView)
         view.addSubview(spinner)
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-        headerView.addSubview(titleLabel)
-        tableView.tableHeaderView = headerView
     }
     
     private func makeConstraints() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        titleLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
@@ -92,6 +84,7 @@ final class NewsViewController: UIViewController {
             self.spinner.stopAnimating()
         } failure: { [weak self] error in
             self?.spinner.stopAnimating()
+            self?.showAlert(title: "Network Error!", message: "Please, try again later.")
             self?.emptyViewSettings()
         }
     }
@@ -110,6 +103,16 @@ final class NewsViewController: UIViewController {
         } else {
             emptyView.removeFromSuperview()
         }
+    }
+    
+    private func refreshControllConfiguration() {
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+    }
+    
+    @objc private func refreshAction() {
+        getData()
+        refreshControl.endRefreshing()
     }
     
 }
