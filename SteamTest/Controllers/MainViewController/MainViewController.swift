@@ -69,11 +69,7 @@ final class MainViewController: UIViewController {
     // MARK: - UI Configuration
     
     private func navigationControllerSettings() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = "Список приложений"
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemCyan, NSAttributedString.Key.font: UIFont(name: "Marker Felt", size: 35) as Any]
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemCyan, NSAttributedString.Key.font: UIFont(name: "Marker Felt", size: 20) as Any]
+        navigationControllerSettings(title: "Список приложений")
     }
     
     private func layoutElements() {
@@ -109,13 +105,6 @@ final class MainViewController: UIViewController {
             self.spinner.stopAnimating()
             print(error)
         }
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "Ok", style: .default)
-        alert.addAction(okButton)
-        present(alert, animated: true)
     }
     
     private func emptyViewSettings(array: [GameModel]) {
@@ -163,7 +152,7 @@ extension MainViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let newsVc = NewsViewController()
         newsVc.currentId = filteredArray[indexPath.row].appid
-        present(newsVc, animated: true)
+        navigationController?.pushViewController(newsVc, animated: true)
     }
 }
 

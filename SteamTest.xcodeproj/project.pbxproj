@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		409B34A12A274F55003664BB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B34A02A274F55003664BB /* Extensions.swift */; };
 		40F0F3EE2A21409D00ADA3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F0F3ED2A21409D00ADA3A7 /* AppDelegate.swift */; };
 		40F0F3F02A21409D00ADA3A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F0F3EF2A21409D00ADA3A7 /* SceneDelegate.swift */; };
 		40F0F3F52A21409D00ADA3A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F0F3F32A21409D00ADA3A7 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		409B34A02A274F55003664BB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		40F0F3EA2A21409D00ADA3A7 /* SteamTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F0F3ED2A21409D00ADA3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40F0F3EF2A21409D00ADA3A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		409B349F2A274F34003664BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				409B34A02A274F55003664BB /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		40F0F3E12A21409D00ADA3A7 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +86,7 @@
 		40F0F3EC2A21409D00ADA3A7 /* SteamTest */ = {
 			isa = PBXGroup;
 			children = (
+				409B349F2A274F34003664BB /* Extensions */,
 				40F0F41B2A21556400ADA3A7 /* CustomElements */,
 				40F0F40D2A21424D00ADA3A7 /* Models */,
 				40F0F40C2A21424100ADA3A7 /* Managers */,
@@ -256,6 +267,7 @@
 				40F0F4152A21430E00ADA3A7 /* ApiManager.swift in Sources */,
 				40F0F41F2A215B8800ADA3A7 /* NewsViewController.swift in Sources */,
 				40F0F3F02A21409D00ADA3A7 /* SceneDelegate.swift in Sources */,
+				409B34A12A274F55003664BB /* Extensions.swift in Sources */,
 				40F0F4132A2142F000ADA3A7 /* GameCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -67,9 +67,9 @@ final class NewsCell: UITableViewCell {
     private func setupData() {
         titleLabel.text = currentNews.title
         do {
-            let doc: Document = try SwiftSoup.parseBodyFragment(currentNews.contents)
+            let doc: Document = try SwiftSoup.parse(currentNews.contents)
             let parseNews = try doc.text()
-            self.newsLabel.text = filterTagsFrom(text: parseNews.removingUrls())
+            newsLabel.text = parseNews
         } catch {
             print("Error")
         }
