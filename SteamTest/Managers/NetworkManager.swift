@@ -12,9 +12,8 @@ typealias ObjectBlock<T: Decodable> = ((T) -> Void)
 typealias Failure = ((Error) -> Void)
 
 final class NetworkManager {
-    private let provider = MoyaProvider<ApiManager>(plugins: [NetworkLoggerPlugin()])
-    
     func getGamesListData(success: ObjectBlock<ResultModel>?, failure: Failure?) {
+        let provider = MoyaProvider<AppListApi>(plugins: [NetworkLoggerPlugin()])
         provider.request(.getAppsList) { result in
             switch result {
                 case .success(let response):
@@ -31,6 +30,7 @@ final class NetworkManager {
     }
     
     func getNewsForAppWith(id: Int, success: ObjectBlock<NewsResult>?, failure: Failure?) {
+        let provider = MoyaProvider<NewsApi>(plugins: [NetworkLoggerPlugin()])
         provider.request(.getNewsFor(id: id)) { result in
             switch result {
                 case .success(let response):
